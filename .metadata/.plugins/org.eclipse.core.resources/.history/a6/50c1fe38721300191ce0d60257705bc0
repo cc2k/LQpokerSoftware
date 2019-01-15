@@ -1,0 +1,353 @@
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.IOException;
+import java.text.NumberFormat;
+
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JSpinner;
+import javax.swing.ListCellRenderer;
+import javax.swing.text.NumberFormatter;
+
+import org.omg.CosNaming.IstringHelper;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
+public class AddTournamentToRankingGUI {
+
+	private JFrame frame;
+	private AddTournamentToRanking attr;
+	private JComboBox<String> comboBoxAddPlayerTpTournament;
+	// private File namesText;
+	// private String filePathComboFiller =
+	// "G:\\\\LQpokerSoftware\\\\LqpokerApp\\\\src\\\\jcomboboxfiller.txt";
+	private String filePath = "G:\\\\LQpokerSoftware\\\\LqpokerApp\\\\src\\\\json_example.txt";
+	private JFormattedTextField textFieldPlayerRank;
+	private JFormattedTextField textFieldTotalPlayer;
+	private int totalPlayersInTournament;
+	private JsonArray playerList;
+	private DateBaseHandeling db;
+	private JComboBox<String> jComboBoxTypeTournament;
+	private List listCurrentTournament;
+	private currentTournamentHandling ct;
+	private String prevSelectedItem;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddTournamentToRankingGUI window = new AddTournamentToRankingGUI();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 * 
+	 * @throws JsonSyntaxException
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
+	public AddTournamentToRankingGUI() throws JsonIOException, JsonSyntaxException, IOException {
+		db = new DateBaseHandeling();
+		ct= new currentTournamentHandling();
+		initialize();
+
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 * 
+	 * @throws JsonSyntaxException
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
+	private void initialize() throws JsonIOException, JsonSyntaxException, IOException {
+		// namesText = new File(filePath);
+		// playerList = new ArrayList<String>();
+
+		// frame(window)
+		frame = new JFrame();
+		frame.setBounds(100, 100, 735, 814);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		// Button to add the tournament to the ranking window
+		JButton btnAddTournamentToRanking = new JButton("Add tournament");
+		btnAddTournamentToRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				attr = new AddTournamentToRanking();
+				attr.addTournamentToRankingMethod();
+			}
+
+		});
+		btnAddTournamentToRanking.setBounds(391, 514, 243, 23);
+		frame.getContentPane().add(btnAddTournamentToRanking);
+
+		// the combobox holding all previous players int he list
+		comboBoxAddPlayerTpTournament = new JComboBox<String>();
+		comboBoxAddPlayerTpTournament.setEditable(true);
+		comboBoxAddPlayerTpTournament.setBounds(44, 148, 155, 36);
+
+		populateJcomboPrePlayersFromJsonFile();
+
+		frame.getContentPane().add(comboBoxAddPlayerTpTournament);
+
+		// show the ((un)complete)ranking of the current tournament
+		listCurrentTournament = new List();
+		listCurrentTournament.setBounds(391, 41, 243, 436);
+		frame.getContentPane().add(listCurrentTournament);
+		
+		
+		addPPLForTestingToList();//test
+		totalPlayersInTournament =12; //test
+		
+
+		// textfield that holds the player rank
+		NumberFormat format = NumberFormat.getInstance();
+		NumberFormatter formatter = new NumberFormatter(format);
+		formatter.setValueClass(Integer.class);
+		formatter.setMinimum(0);
+		formatter.setMaximum(Integer.MAX_VALUE);
+		formatter.setAllowsInvalid(false);
+		// If you want the value to be committed on each keystroke instead of focus lost
+		formatter.setCommitsOnValidEdit(true);
+		textFieldPlayerRank = new JFormattedTextField(formatter);
+
+		// textFieldPlayerRank = new JTextField();
+		textFieldPlayerRank.setBounds(209, 148, 36, 36);
+		frame.getContentPane().add(textFieldPlayerRank);
+		textFieldPlayerRank.setColumns(10);
+
+		// button to add, the player selected, to the tournament
+		Button addPlayerToListCurrentTournament = new Button("Add player");
+		addPlayerToListCurrentTournament.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (textFieldPlayerRank.getText() == null || textFieldPlayerRank.getText().equalsIgnoreCase("")) {
+					ToastMessage message = new ToastMessage("Add a players rank!");
+					message.display();
+					return;
+				} else if (listCurrentTournament.getItemCount() <= 0)
+
+				{
+					ToastMessage message = new ToastMessage("Add total players!");
+					message.display();
+					return;
+				} else {
+
+					int playerRank = Integer.parseInt(textFieldPlayerRank.getText());
+					// Types type = new Types();
+
+					listCurrentTournament.replaceItem(
+							playerRank + ". "
+									+ ct.getPlayerListStringWithRanking(
+											comboBoxAddPlayerTpTournament.getSelectedItem().toString(), playerRank, jComboBoxTypeTournament.getSelectedItem().toString(), 
+											totalPlayersInTournament),
+							playerRank - 1);
+					try {
+						db.appendNameToJsonFile(comboBoxAddPlayerTpTournament.getSelectedItem().toString(), filePath);
+					} catch (JsonIOException | JsonSyntaxException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					textFieldPlayerRank.setText("");
+				}
+
+			}
+		});
+		addPlayerToListCurrentTournament.setActionCommand("Add player");
+		addPlayerToListCurrentTournament.setBounds(66, 190, 70, 22);
+		frame.getContentPane().add(addPlayerToListCurrentTournament);
+
+		// textfield with the number of total players this tournament
+		NumberFormat format2 = NumberFormat.getInstance();
+		NumberFormatter formatter2 = new NumberFormatter(format2);
+		formatter2.setValueClass(Integer.class);
+		formatter2.setMinimum(0);
+		formatter2.setMaximum(Integer.MAX_VALUE);
+		formatter2.setAllowsInvalid(false);
+		// If you want the value to be committed on each keystroke instead of focus lost
+		formatter2.setCommitsOnValidEdit(true);
+		textFieldTotalPlayer = new JFormattedTextField(formatter2);
+
+		// textFieldTotalPlayer = new JFormattedTextField();
+		textFieldTotalPlayer.setColumns(10);
+		textFieldTotalPlayer.setBounds(95, 41, 36, 36);
+		frame.getContentPane().add(textFieldTotalPlayer);
+
+		// button to set total players
+		Button buttonTotalPlayerTournament = new Button("set total players");
+		buttonTotalPlayerTournament.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+//				totalPlayersInTournament = Integer.parseInt(textFieldTotalPlayer.getText());
+//				for (int i = 0; i < totalPlayersInTournament; i++) {
+//		
+//					listCurrentTournament.add(i + 1 + ". ");
+//				}
+			}
+		});
+		buttonTotalPlayerTournament.setBounds(137, 55, 91, 22);
+		frame.getContentPane().add(buttonTotalPlayerTournament);
+
+		jComboBoxTypeTournament = new JComboBox<String>();
+		jComboBoxTypeTournament.setBounds(66, 299, 101, 29);
+		frame.getContentPane().add(jComboBoxTypeTournament);
+		// populate spinner met types
+		populateJcomboTypesFromJsonFile();
+		jComboBoxTypeTournament.setSelectedIndex(0);
+		prevSelectedItem=jComboBoxTypeTournament.getSelectedItem().toString();
+		System.out.print("preSelected: "+prevSelectedItem+"\n");
+		
+		jComboBoxTypeTournament.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				
+				if(e.getStateChange() == ItemEvent.DESELECTED) {
+				//	prevSelectedItem = jComboBoxTypeTournament.getSelectedItem().toString();
+					//System.out.print("Deselected: "+prevSelectedItem);
+				}
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+			          //update points
+					System.out.print("Before if selected: "+prevSelectedItem+"\n");
+					
+				//updateTypeNormaalToTeamListCurrentTournamentPoints(3);
+					if(prevSelectedItem != "" && jComboBoxTypeTournament.getSelectedItem().toString().equals("Team"))
+					updateCurrentTournament(3, prevSelectedItem);
+					//ct.updateTypeNormaalToTeamListCurrentTournamentPoints(3, listCurrentTournament, "Team", totalPlayersInTournament);
+						
+						System.out.print("after if selected: "+prevSelectedItem+"\n");
+					prevSelectedItem = jComboBoxTypeTournament.getSelectedItem().toString();
+					System.out.print("changed preSelected: "+prevSelectedItem+"\n");
+			}
+		}});
+		
+		
+		
+		JSpinner spinnerTournamentBlock = new JSpinner();
+		spinnerTournamentBlock.setBounds(260, 259, 36, 36);
+		frame.getContentPane().add(spinnerTournamentBlock);
+
+		JLabel labelBlok = new JLabel("Blok current tournament");
+		labelBlok.setBounds(209, 225, 101, 23);
+		frame.getContentPane().add(labelBlok);
+
+		JLabel labelRank = new JLabel("Rank player");
+		labelRank.setBounds(199, 123, 57, 14);
+		frame.getContentPane().add(labelRank);
+
+		JButton buttonEditPlayerInList = new JButton("Edit player");
+		buttonEditPlayerInList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//updateListCurrentTournamentPoints();
+			
+			}
+		});
+		buttonEditPlayerInList.setBounds(391, 483, 91, 23);
+		frame.getContentPane().add(buttonEditPlayerInList);
+
+		JButton buttonRemovePlayerFromList = new JButton("Remove player");
+		buttonRemovePlayerFromList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedIndex = listCurrentTournament.getSelectedIndex();
+				listCurrentTournament.replaceItem((selectedIndex + 1 + ". "), selectedIndex);
+			}
+		});
+		buttonRemovePlayerFromList.setBounds(513, 483, 121, 23);
+		frame.getContentPane().add(buttonRemovePlayerFromList);
+	}
+
+	private void addPPLForTestingToList() {
+		// TODO Auto-generated method stub
+		listCurrentTournament.add("1. Ronald Brans      punten: 17", 0);
+		listCurrentTournament.add("2. Brans      punten: 15", 1);
+		listCurrentTournament.add("3. Ronald      punten: 14", 2);
+		listCurrentTournament.add("4. Eric van Gastel      punten: 12", 3);
+		listCurrentTournament.add("5. Gastel      punten: 11", 4);
+		listCurrentTournament.add("6. Robbie      punten: 9", 5);
+		listCurrentTournament.add("7. Greve      punten: 8", 6);
+		listCurrentTournament.add("8. Tomas      punten: 5", 7);
+		listCurrentTournament.add("9. Rob den Hartog      punten: 4", 8);
+		listCurrentTournament.add("10. Rob      punten: 3", 9);
+		listCurrentTournament.add("11. Hartog      punten: 2", 10);
+		listCurrentTournament.add("12. Bram Hoefmakers      punten: 1", 11);
+	}
+
+	private void populateJcomboPrePlayersFromJsonFile() throws JsonIOException, JsonSyntaxException, IOException {
+		String[] lines;
+		lines = db.readJsonPrePlayersFromFileToArray(filePath);
+
+		comboBoxAddPlayerTpTournament.removeAllItems();
+
+		for (String str : lines) {
+			comboBoxAddPlayerTpTournament.addItem(str);
+		}
+	}
+
+	private void populateJcomboTypesFromJsonFile() throws JsonIOException, JsonSyntaxException, IOException {
+		String[] lines;
+		lines = db.getTypeTournamentFromJsonFile(filePath);
+
+		jComboBoxTypeTournament.removeAllItems();
+
+		for (String str : lines) {
+			jComboBoxTypeTournament.addItem(str);
+		}
+	}
+
+	private ListCellRenderer<? super String> getRenderer() {
+		return new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				JLabel listCellRendererComponent = (JLabel) super.getListCellRendererComponent(list, value, index,
+						isSelected, cellHasFocus);
+				listCellRendererComponent.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+				return listCellRendererComponent;
+			}
+		};
+	}
+
+
+	private void updateCurrentTournament(int teamSize, String prevSelectedItem){
+		listCurrentTournament.removeAll();
+		
+		if(jComboBoxTypeTournament.getSelectedItem().toString().equals("Team") && prevSelectedItem.equals("Normaal")) {
+			List tempList =ct.updateTypeNormaalToTeamListCurrentTournamentPoints(teamSize, listCurrentTournament, jComboBoxTypeTournament.getSelectedItem().toString(), totalPlayersInTournament);
+			for(int i =0; tempList.getItemCount()-1>=i;i++) {
+				listCurrentTournament.add(tempList.getItem(i), i);
+		
+		}
+		}else if (jComboBoxTypeTournament.getSelectedItem().toString().equals("Normaal")) {
+		
+		}
+		
+	}
+	
+	
+	}
+

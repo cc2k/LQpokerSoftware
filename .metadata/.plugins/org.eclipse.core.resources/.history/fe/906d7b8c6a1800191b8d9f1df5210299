@@ -1,0 +1,438 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
+public class DateBaseHandeling {
+
+	private JsonArray jsonListPlayers;
+	private List<Player> playersInJsonFile;
+	//private JsonArray jsonListParticipants;
+	private JsonObject jsonObjectWholeFile;// object??
+	private String jsonWholeFileString;
+	private JsonObject jObjectPlayer;
+	//private JsonObject jObjectParticipant;
+	private String type;
+	private String[] types;
+	private JsonArray blocks;
+	private JsonObject block;
+	private JsonArray tournamentsAllTimes;
+	private JsonObject TournamentYear;
+	private Gson gson;
+	private File jsonFullFile; // Path path; not sure why this over file?
+	private String filePath = "G:\\\\LQpokerSoftware\\\\LqpokerApp\\\\src\\\\json_example.txt";
+	private Player singlePlayerInJsonFile;
+	//private Participant singlePartisipantInJsonFile;
+	//private List<Participant> participantsInJsonFile;
+	private List<Type> typesInJsonFile;
+	private Type singleTypeInJsonFile;
+	private List<Block> blocksInJsonFile;
+	private Block singleBlockInJsonFile;
+	private List<TournamentYear> allTimeRankingInJsonFile;
+	private TournamentYear singleTournamentYearInJsonFile;
+	private JsonArray jsonListTypes;
+
+	// wholejsonfile
+
+	private JsonObject getFullJsonFile() {
+		jsonFullFile = new File(filePath);
+		gson = new GsonBuilder().setLenient().create();
+		if (jsonWholeFileString == null) {
+			try {
+				jsonWholeFileString = new String(Files.readAllBytes(jsonFullFile.toPath()), StandardCharsets.UTF_8);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		jsonObjectWholeFile = gson.fromJson(jsonWholeFileString, JsonObject.class);
+		// System.out.print("Full jsonobject file: "+jsonObjectWholeFile.toString());
+
+		return jsonObjectWholeFile;
+
+	}
+
+//	//write full file away
+//	private void writeFullJsonFile(JsonObject fulljsonTobeAddToFile) {
+//		
+//	}
+
+	// Players
+	public List<Player> getPlayersFromJsonFile() {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+		if (playersInJsonFile == null) {
+
+			playersInJsonFile = new ArrayList<Player>();
+		}
+
+		Responce responce = gson.fromJson(jsonWholeFileString, Responce.class);
+		jsonListPlayers = responce.getPlayer();
+
+		for (Object o : jsonListPlayers) {
+			JsonObject jsonTempObject = (JsonObject) o;
+			Player tempPlayer = new Player(Integer.parseInt(jsonTempObject.get("ID").toString().replace("\"", "")),
+					jsonTempObject.get("Name").toString().replace("\"", ""),
+					jsonTempObject.get("Middle name").toString().replace("\"", ""),
+					jsonTempObject.get("Surname").toString().replace("\"", ""),
+					jsonTempObject.get("Username").toString().replace("\"", ""),
+					jsonTempObject.get("Password").toString().replace("\"", ""),
+					jsonTempObject.get("Editor").getAsBoolean());
+
+			playersInJsonFile.add(tempPlayer);
+		}	
+		return playersInJsonFile;
+
+	}
+
+//	public void setPlayersToJsonFile(List<Player> playerListToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// player
+	public Player getSinglePlayerFromJsonFile(String name, String middleNames, String surname) {//maybe use the getlistplayers method for this method?
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+		singlePlayerInJsonFile = new Player();
+
+		if(jsonListPlayers== null) {
+		Responce responce = gson.fromJson(jsonWholeFileString, Responce.class);
+		jsonListPlayers = responce.getPlayer();
+		}
+
+		for (Object o : jsonListPlayers) {
+			JsonObject jsonTempObject = (JsonObject) o;
+			Player tempPlayer = new Player(Integer.parseInt(jsonTempObject.get("ID").toString().replace("\"", "")),
+					jsonTempObject.get("Name").toString().replace("\"", ""),
+					jsonTempObject.get("Middle name").toString().replace("\"", ""),
+					jsonTempObject.get("Surname").toString().replace("\"", ""),
+					jsonTempObject.get("Username").toString().replace("\"", ""),
+					jsonTempObject.get("Password").toString().replace("\"", ""),
+					jsonTempObject.get("Editor").getAsBoolean());
+					
+			if(tempPlayer.getname().equals(name)&&tempPlayer.getmiddleName().equals(middleNames)&&tempPlayer.getsurname().equals(surname)) {
+				singlePlayerInJsonFile = tempPlayer;
+				return singlePlayerInJsonFile;
+			
+		}
+		}
+		
+		return singlePlayerInJsonFile;
+
+	}
+
+	public void setSinglePlayerToJsonFile(Player playerToAdd) {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+		
+		if(playersInJsonFile!=null) {
+		JsonObject jsonTempObject = new JsonObject();
+				jsonTempObject.addProperty("id",playersInJsonFile.size()+1);
+				jsonTempObject.addProperty("Name", playerToAdd.getname());
+				jsonTempObject.addProperty("Middle name", playerToAdd.getmiddleName());
+				jsonTempObject.addProperty("Surname", playerToAdd.getsurname());
+				jsonTempObject.addProperty("Username", playerToAdd.getusername());
+				jsonTempObject.addProperty("Password", playerToAdd.getpassword());
+				jsonTempObject.addProperty("Editor", playerToAdd.getEditor());
+				
+				playersInJsonFile.add(playerToAdd);
+		}
+
+	}
+
+	// Participants
+//	private List<Participant> getParticipantsFromJsonFile() {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//		return participantsInJsonFile;
+//
+//	}
+
+//	private void setParticipantsFromJsonFile(List<Participant> partisipantsListToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// participant
+//	@SuppressWarnings("unused")
+//	private Participant getSingleParticipantFromJsonFile() {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//		return singlePartisipantInJsonFile;
+//
+//	}
+
+//	private void setParticipantFromJsonFile(Participant partisipantToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// types
+	public List<Type> getTypesFromJsonFile() {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+
+		
+		if (typesInJsonFile == null) {
+
+			typesInJsonFile = new ArrayList<Type>();
+		}
+
+		Responce responce = gson.fromJson(jsonWholeFileString, Responce.class);
+		jsonListTypes = responce.getType();
+
+		for (Object o : jsonListTypes) {
+			JsonObject jsonTempObject = (JsonObject) o;
+			Type tempType = new Type(jsonTempObject.get("Type").toString().replace("\"", ""));
+
+			typesInJsonFile.add(tempType);
+		}	
+		
+		return typesInJsonFile;
+
+	}
+
+//	private void setTypesFromJsonFile(List<Type> typesListToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// type
+	private Type getSingleTypeFromJsonFile() {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+
+		return singleTypeInJsonFile;
+
+	}
+
+//	private void setTypeFromJsonFile(Type typeToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// Blocks
+	private List<Block> getBlockFromJsonFile() {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+
+		return blocksInJsonFile;
+
+	}
+
+//	private void setblocksFromJsonFile(List<Block> blocksListToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// Block
+	private Block getSingleBlockFromJsonFile() {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+
+		return singleBlockInJsonFile;
+
+	}
+
+//	private void setBlockFromJsonFile(Block blockToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// all time ranking all years
+	private List<TournamentYear> getAllTimeRankingFromJsonFile() {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+
+		return allTimeRankingInJsonFile;
+
+	}
+
+//	private void setAllTimeRankingFromJsonFile(List<TournamentYear> typesListToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+	// tournament year
+	private TournamentYear getSingleTournamentYearFromJsonFile() {
+		if (jsonObjectWholeFile == null) {
+			getFullJsonFile();
+		}
+
+		return singleTournamentYearInJsonFile;
+
+	}
+
+//	private void setSingleTournamentYearFromJsonFile(TournamentYear tournamentYearToAdd) {
+//		if (jsonObjectWholeFile == null) {
+//			getFullJsonFile();
+//		}
+//
+//	}
+
+//	public String[] getTypeTournamentFromJsonFile(String filepath) {
+//		ArrayList<String> ar = new ArrayList<String>();
+//
+//		jsonFullFile = new File(filepath);
+//		gson = new GsonBuilder().setLenient().create();
+//		if (jsonWholeFileString == null) {
+//			try {
+//				jsonWholeFileString = new String(Files.readAllBytes(jsonFullFile.toPath()), StandardCharsets.UTF_8);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		Responce responce = gson.fromJson(jsonWholeFileString, Responce.class);
+//		JsonArray types = responce.getType();
+//
+//		for (Object o : types) {
+//			JsonObject jsonTempObject = (JsonObject) o;
+//			ar.add(jsonTempObject.get("Type").toString().replace("\"", ""));
+//		}
+//
+//		return ar.toArray(new String[ar.size()]);
+//	}
+
+//	public JsonArray getPlayersFromLocalFile(String filepath) throws JsonIOException, JsonSyntaxException, IOException {
+//
+//		jsonFullFile = new File(filepath);
+//		gson = new GsonBuilder().setLenient().create();
+//		if (jsonWholeFileString == null) {
+//			jsonWholeFileString = new String(Files.readAllBytes(jsonFullFile.toPath()), StandardCharsets.UTF_8);
+//		}
+//
+//		Responce responce = gson.fromJson(jsonWholeFileString, Responce.class);
+//
+//		jsonListPlayers = responce.getParticipant();
+//
+//		return jsonListPlayers;
+//	}
+
+//	public String[] readJsonPrePlayersFromFileToArray(String filepath)
+//			throws JsonIOException, JsonSyntaxException, IOException {
+//		ArrayList<String> arr = new ArrayList<>();
+//		arr.add("");// so there will be a empty space to type a name in the list
+//		JsonArray jsonTempArray = new JsonArray();
+//		jsonTempArray = getPlayersFromLocalFile(filepath);
+//
+//		for (Object o : jsonTempArray) {
+//			JsonObject jsonTempObject = (JsonObject) o;
+//			arr.add(jsonTempObject.get("Name").toString().replace("\"", "") + " "
+//					+ jsonTempObject.get("Middle name").toString().replace("\"", "") + " "
+//					+ jsonTempObject.get("Surname").toString().replace("\"", ""));
+//		}
+//
+//		return arr.toArray(new String[arr.size()]);
+//	}
+
+//	public void appendNameToJsonFile(String textToAppend, String filepath)
+//			throws JsonIOException, JsonSyntaxException, IOException {
+//		jsonFullFile = new File(filepath);
+//
+//		jObjectPlayer = new JsonObject();
+//
+//		boolean found = false;
+//		for (Object o : jsonListPlayers) {
+//
+//			JsonObject josnTempObject = (JsonObject) o;
+//
+//			if (josnTempObject.get("Name").toString().replace("\"", "").equalsIgnoreCase(textToAppend)) {
+//				found = true;
+//				break;
+//			}
+//
+//		}
+//
+//		if (!found) {
+//
+//			if (jsonWholeFileString == null) {
+//				jsonWholeFileString = new String(Files.readAllBytes(jsonFullFile.toPath()), StandardCharsets.UTF_8);
+//			}
+//
+//			String[] splitted = textToAppend.split("\\s+");
+//			String middleName = "";
+//
+//			String voornaam = splitted[0];
+//			if (splitted.length == 1) {
+//				middleName = "";
+//			} else {
+//				for (int i = 1; i < splitted.length - 1; i++) {
+//					middleName = middleName + splitted[i] + " ";
+//				}
+//			}
+//			String achternaam = splitted[splitted.length - 1];
+//
+//			// System.out.print("Test namen:"+textToAppend+" , voor: "+voornaam+"
+//			// tussenvoegsels: "+tussenvoegsels+" Achternaam:"+achternaam);
+//
+//			jObjectPlayer.addProperty("ID", jsonListPlayers.size() + 1);
+//			jObjectPlayer.addProperty("Name", voornaam);
+//			jObjectPlayer.addProperty("Middle name", middleName);
+//			jObjectPlayer.addProperty("Surname", achternaam);
+//			jObjectPlayer.addProperty("Username", "");
+//			jObjectPlayer.addProperty("Password", "");
+//			jObjectPlayer.addProperty("Editor", false);
+//
+//			jsonListPlayers.add(jObjectPlayer);
+//
+//			JsonObject wholeFile = new JsonObject();
+//			JsonParser parser = new JsonParser();
+//
+//			wholeFile = (JsonObject) parser.parse(jsonWholeFileString);
+//
+//			wholeFile.add("Player", jsonListPlayers);
+//
+//			Gson tempGson = new GsonBuilder().setPrettyPrinting().create();
+//			String wholeFilePrettyPrinting = tempGson.toJson(wholeFile);
+//
+//			// System.out.print(wholeFilePrettyPrinting.toString());
+//
+//			Files.write(jsonFullFile.toPath(), Collections.singletonList(wholeFilePrettyPrinting));
+//		}
+//		found = false;
+//	}
+
+}

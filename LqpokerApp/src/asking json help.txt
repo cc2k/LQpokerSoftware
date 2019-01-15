@@ -1,0 +1,55 @@
+im having a json file which i try to get my data from, i have used jsonlint to checkthe json.
+
+as java doesnt use json, i had to get the gson lib into the project.
+
+so when i tried to get an object or array from the file, with the code 
+deel = gson.fromJson(deelnemers, Deelnemers.class); (deel = Deelnemers class, deelnemers = string)
+i also have tried 
+jsonobject = gson.fromJson(deelnemer, Deelnemer.class);(jsonobject =jsonobject, deelnemer = string)
+
+
+i keep getting the error Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
+or BEGIN_Array.
+
+
+
+I have no clue what to do now, i have looked up at the error but i coud not find a solution to my problem,
+some of the tries:
+https://stackoverflow.com/questions/16019117/java-json-program-not-showing-any-output/16019784#16019784
+
+
+here are the json i am using
+
+````
+{
+	"2019": {
+		"Toernooi": [{
+			"ID": "",
+			"Toernooi nummer": 4,
+			"Datum": "",
+			"Type": "",
+			"Telt voor blok": ""
+		}],
+		"Toernooi_Deelnemer": [{
+			"Deelnemer_ID": "",
+			"Toernooi_ID": "",
+			"Punten": "",
+			"Rebuys": "",
+			"Addon": "",
+			"Bounties": "",
+			"Telt voor blok": ""
+		}]
+	},
+	"Deelnemers": {
+		"Deelnemer": [{
+			"ID": "",
+			"Voornaam": "",
+			"Achternaam": "",
+			"Usernaam": "",
+			"Wachtwoord": "",
+			"Beheerder": ""
+		}]
+	},
+	"Type": ["Normaal", "Rebuy", "Crapshoot", "Team", "SUCP", "Summer", "LCQ", "Masters"]
+}
+''''

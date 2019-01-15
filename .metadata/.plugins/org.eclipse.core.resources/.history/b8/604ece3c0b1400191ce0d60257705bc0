@@ -1,0 +1,115 @@
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Players {
+
+@SerializedName("ID")
+@Expose
+private Integer iD;
+@SerializedName("Name")
+@Expose
+private String name;
+@SerializedName("Surname")
+@Expose
+private String surname;
+@SerializedName("Username")
+@Expose
+private String username;
+@SerializedName("Password")
+@Expose
+private String password;
+@SerializedName("Editor")
+@Expose
+private Boolean editor;
+@SerializedName("Middle name")
+@Expose
+private String middleName;
+
+
+
+/**
+* No args constructor for use in serialization
+* 
+*/
+public Players() {
+}
+
+/**
+* 
+* @param Editor
+* @param wachtwoord
+* @param achternaam
+* @param tussenvoegsels
+* @param voornaam
+* @param usernaam
+* @param iD
+*/
+public Players(Integer iD, String voornaam, String tussenvoegsels, String achternaam, String usernaam, String wachtwoord, Boolean Editor) {
+super();
+this.iD = iD;
+this.voornaam = voornaam;
+this.tussenvoegsels = tussenvoegsels;
+this.achternaam = achternaam;
+this.usernaam = usernaam;
+this.wachtwoord = wachtwoord;
+this.Editor = Editor;
+}
+
+public Integer getID() {
+return iD;
+}
+
+public void setID(Integer iD) {
+this.iD = iD;
+}
+
+public String getVoornaam() {
+return voornaam;
+}
+
+public void setVoornaam(String voornaam) {
+this.voornaam = voornaam;
+}
+
+public String getTussenvoegsels() {
+	return tussenvoegsels;
+}
+
+public void setTussenvoegsels(String tussenvoegsels) {
+	this.tussenvoegsels = tussenvoegsels;
+}
+
+public String getAchternaam() {
+return achternaam;
+}
+
+public void setAchternaam(String achternaam) {
+this.achternaam = achternaam;
+}
+
+public String getUsernaam() {
+return usernaam;
+}
+
+public void setUsernaam(String usernaam) {
+this.usernaam = usernaam;
+}
+
+public String getWachtwoord() {
+return wachtwoord;
+}
+
+public void setWachtwoord(String wachtwoord) {
+this.wachtwoord = wachtwoord;
+}
+
+public Boolean getEditor() {
+return Editor;
+}
+
+public void setEditor(Boolean editor) {
+this.editor = editor;
+}
+
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;middleName&apos; in &apos;AddTournamentToRankingGUI.initialize().new ActionListener() {...}.actionPerformed(...)&apos; to &apos;middleNames&apos;&#x0D;&#x0A;- Original project: &apos;LqpokerApp&apos;&#x0D;&#x0A;- Original element: &apos;AddTournamentToRankingGUI.initialize().new ActionListener() {...}.actionPerformed(ActionEvent).middleName&apos;&#x0D;&#x0A;- Renamed element: &apos;middleName&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;middleName&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{AddTournamentToRankingGUI.java[AddTournamentToRankingGUI~initialize[!2~actionPerformed~QActionEvent;@middleName!5829!5851!5836!5845!QString;!0!false" name="middleNames" references="true" stamp="1547514622477" version="1.0"/>
+</session>

@@ -1,0 +1,174 @@
+{
+	"Tournament Year": {
+		"Year":"2019",
+		"Block": [{
+			"Block number": "",
+			"Tournament": [{
+				"ID": "",
+				"Tournament number": 4,
+				"Date": "",
+				"Type": ""
+			}]
+		}],
+		"Participant": [{
+			"Player_ID": "",
+			"Tournament_ID": "",
+			"Points": "",
+			"Rebuys": "",
+			"Addon": "",
+			"Bounties": ""
+		}]
+	},
+	"Players": [{
+			"ID": "1",
+			"Name": "Ronald",
+			"Middle name": "",
+			"Surname": "Brans",
+			"Username": "",
+			"Password": "",
+			"Editor": ""
+		},
+		{
+			"ID": "2",
+			"Name": "Ben",
+			"Middle name": "van der",
+			"Surname": "Meer",
+			"Username": "",
+			"Password": "",
+			"Editor": ""
+		},
+		{
+			"ID": "3",
+			"Name": "Eric",
+			"Middle name": "",
+			"Surname": "",
+			"Username": "",
+			"Password": "",
+			"Editor": ""
+		},
+		{
+			"ID": 4,
+			"Name": "Tom",
+			"Middle name": "",
+			"Surname": "",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 5,
+			"Name": "Tom2",
+			"Middle name": "",
+			"Surname": "",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 6,
+			"Name": "Tom4",
+			"Middle name": "",
+			"Surname": "",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 7,
+			"Name": "Eric2",
+			"Middle name": "",
+			"Surname": "",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 8,
+			"Name": "Ben",
+			"Middle name": "van der ",
+			"Surname": "Meer",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 9,
+			"Name": "Ronald",
+			"Middle name": "",
+			"Surname": "Brans",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 10,
+			"Name": "Ronald",
+			"Middle name": "",
+			"Surname": "Brans",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 11,
+			"Name": "Ben",
+			"Middle name": "van der ",
+			"Surname": "Meer",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 12,
+			"Name": "Eric",
+			"Middle name": "",
+			"Surname": "Eric",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 13,
+			"Name": "Tom",
+			"Middle name": "",
+			"Surname": "Tom",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		},
+		{
+			"ID": 14,
+			"Name": "Tom4",
+			"Middle name": "",
+			"Surname": "Tom4",
+			"Username": "",
+			"Password": "",
+			"Editor": false
+		}
+	],
+	"Types": [{
+			"Type": "Normal"
+		},
+		{
+			"Type": "Rebuy"
+		},
+		{
+			"Type": "Crapshoot"
+		},
+		{
+			"Type": "Team"
+		},
+		{
+			"Type": "SUCP"
+		},
+		{
+			"Type": "Summer"
+		},
+		{
+			"Type": "LCQ"
+		},
+		{
+			"Type": "Masters"
+		}
+	]
+}

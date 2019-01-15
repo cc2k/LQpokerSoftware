@@ -1,0 +1,16 @@
+
+public class currentTournamentHandling {
+
+	
+	
+	
+public String getPlayerListStringWithRanking(String playersName, int playerRank, Type typeTournament) {
+
+		
+		
+		String tempString = playersName + "     punten: "
+				+ getPointsCurrentTournament(typeTournament, playerRank);
+
+		return tempString;
+	}
+}

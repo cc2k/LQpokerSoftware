@@ -1,0 +1,179 @@
+{
+  "2019": {
+  	"Block":[{
+  	"Block number":"",
+    "Tournament": [
+      {
+        "ID": "",
+        "Tournament number": 4,
+        "Date": "",
+        "Type": "" 
+      }
+    ]}],
+    "Toernooi_Deelnemer": [
+      {
+        "Deelnemer_ID": "",
+        "Toernooi_ID": "",
+        "Punten": "",
+        "Rebuys": "",
+        "Addon": "",
+        "Bounties": "",
+        "Telt voor blok": ""
+      }
+    ]
+  },
+  "Deelnemers": [
+    {
+      "ID": "1",
+      "Voornaam": "Ronald",
+      "Tussenvoegsels": "",
+      "Achternaam": "Brans",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": ""
+    },
+    {
+      "ID": "2",
+      "Voornaam": "Ben",
+      "Tussenvoegsels": "van der",
+      "Achternaam": "Meer",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": ""
+    },
+    {
+      "ID": "3",
+      "Voornaam": "Eric",
+      "Tussenvoegsels": "",
+      "Achternaam": "",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": ""
+    },
+    {
+      "ID": 4,
+      "Voornaam": "Tom",
+      "Tussenvoegsels": "",
+      "Achternaam": "",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 5,
+      "Voornaam": "Tom2",
+      "Tussenvoegsels": "",
+      "Achternaam": "",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 6,
+      "Voornaam": "Tom4",
+      "Tussenvoegsels": "",
+      "Achternaam": "",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 7,
+      "Voornaam": "Eric2",
+      "Tussenvoegsels": "",
+      "Achternaam": "",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 8,
+      "Voornaam": "Ben",
+      "Tussenvoegsels": "van der ",
+      "Achternaam": "Meer",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 9,
+      "Voornaam": "Ronald",
+      "Tussenvoegsels": "",
+      "Achternaam": "Brans",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 10,
+      "Voornaam": "Ronald",
+      "Tussenvoegsels": "",
+      "Achternaam": "Brans",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 11,
+      "Voornaam": "Ben",
+      "Tussenvoegsels": "van der ",
+      "Achternaam": "Meer",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 12,
+      "Voornaam": "Eric",
+      "Tussenvoegsels": "",
+      "Achternaam": "Eric",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 13,
+      "Voornaam": "Tom",
+      "Tussenvoegsels": "",
+      "Achternaam": "Tom",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    },
+    {
+      "ID": 14,
+      "Voornaam": "Tom4",
+      "Tussenvoegsels": "",
+      "Achternaam": "Tom4",
+      "Usernaam": "",
+      "Wachtwoord": "",
+      "Beheerder": false
+    }
+  ],
+  "Types": [
+    {
+      "Type": "Normaal"
+    },
+    {
+      "Type": "Rebuy"
+    },
+    {
+      "Type": "Crapshoot"
+    },
+    {
+      "Type": "Team"
+    },
+    {
+      "Type": "SUCP"
+    },
+    {
+      "Type": "Summer"
+    },
+    {
+      "Type": "LCQ"
+    },
+    {
+      "Type": "Masters"
+    }
+  ]
+}

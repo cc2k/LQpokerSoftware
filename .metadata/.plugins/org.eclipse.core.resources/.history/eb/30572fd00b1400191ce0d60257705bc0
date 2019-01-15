@@ -1,0 +1,31 @@
+import com.google.gson.JsonArray;
+import com.google.gson.annotations.SerializedName;
+
+class Responce {
+    @SerializedName("Player")
+    private JsonArray player;
+    @SerializedName("Type")
+    private JsonArray type;
+
+	public JsonArray getType() {
+		return types;
+	}
+
+	public void setType(JsonArray type) {
+		this.type = type;
+	}
+
+	public JsonArray getParticipant() {
+		return player;
+	}
+
+	public void setParticipant(JsonArray player) {
+		this.player = player;
+	}
+	 @Override
+	    public String toString() {
+	      return "Responce{" +
+	          "participants=" + player +
+	          '}';
+	    }
+}
