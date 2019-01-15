@@ -102,19 +102,21 @@ private void writeFullJsonFile(JsonObject fulljsonTobeAddToFile) {
 
 	}
 
-//	public void setPlayersToJsonFile(List<Player> playerListToAdd) {
-//		if (jsonObjectWholeFile == null) {
-//			getFullJsonFile();
-//		}
-//
-//	}
+/*
+public void setPlayersToJsonFile(List<Player> playerListToAdd) {
+if (jsonObjectWholeFile == null) {
+getFullJsonFile();
+}
+
+}
+*/
 
 	// player
 	public Player getSinglePlayerFromJsonFile(String name, String middleNames, String surname) {//maybe use the getlistplayers method for this method?
 		if (jsonObjectWholeFile == null) {
 			getFullJsonFile();
 		}
-		//singlePlayerInJsonFile ;
+		/* singlePlayerInJsonFile ; */
 
 		if(jsonListPlayers== null) {
 		Responce responce = gson.fromJson(jsonWholeFileString, Responce.class);
@@ -170,8 +172,8 @@ private void writeFullJsonFile(JsonObject fulljsonTobeAddToFile) {
 							Gson tempGson = new GsonBuilder().setPrettyPrinting().create();
 							System.out.print(jsonWholeFileString);
 							String wholeFilePrettyPrinting = tempGson.toJson(jsonObjectWholeFile);
-				
-							// System.out.print(wholeFilePrettyPrinting.toString());
+
+			/* System.out.print(wholeFilePrettyPrinting.toString()); */
 				
 							try {
 								Files.write(jsonFullFile.toPath(), Collections.singletonList(wholeFilePrettyPrinting));
@@ -186,40 +188,42 @@ private void writeFullJsonFile(JsonObject fulljsonTobeAddToFile) {
 
 	}
 
-	// Participants
-//	private List<Participant> getParticipantsFromJsonFile() {
-//		if (jsonObjectWholeFile == null) {
-//			getFullJsonFile();
-//		}
-//
-//		return participantsInJsonFile;
-//
-//	}
+	/*
+Participants
+private List<Participant> getParticipantsFromJsonFile() {
+if (jsonObjectWholeFile == null) {
+getFullJsonFile();
+}
 
-//	private void setParticipantsFromJsonFile(List<Participant> partisipantsListToAdd) {
-//		if (jsonObjectWholeFile == null) {
-//			getFullJsonFile();
-//		}
-//
-//	}
+return participantsInJsonFile;
 
-	// participant
-//	@SuppressWarnings("unused")
-//	private Participant getSingleParticipantFromJsonFile() {
-//		if (jsonObjectWholeFile == null) {
-//			getFullJsonFile();
-//		}
-//
-//		return singlePartisipantInJsonFile;
-//
-//	}
+} */
+	/*
+private void setParticipantsFromJsonFile(List<Participant> partisipantsListToAdd) {
+if (jsonObjectWholeFile == null) {
+getFullJsonFile();
+}
 
-//	private void setParticipantFromJsonFile(Participant partisipantToAdd) {
-//		if (jsonObjectWholeFile == null) {
-//			getFullJsonFile();
-//		}
-//
-//	}
+}*/
+	/*
+participant
+@SuppressWarnings("unused")
+private Participant getSingleParticipantFromJsonFile() {
+if (jsonObjectWholeFile == null) {
+getFullJsonFile();
+}
+
+return singlePartisipantInJsonFile;
+
+}*/
+	/*
+private void setParticipantFromJsonFile(Participant partisipantToAdd) {
+if (jsonObjectWholeFile == null) {
+getFullJsonFile();
+}
+
+}
+*/
 
 	// types
 	public List<Type> getTypesFromJsonFile() {
